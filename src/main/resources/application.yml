@@ -3,6 +3,14 @@ server:
     context-path: /api
   port: 8080
 
+  servlet:
+    session:
+      cookie:
+        path: /
+        http-only: true
+        secure: true
+        sameSite: Lax
+
 spring:
   application:
     name: finance-manager
