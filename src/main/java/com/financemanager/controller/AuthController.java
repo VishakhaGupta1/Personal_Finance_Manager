@@ -7,6 +7,7 @@ import com.financemanager.dto.RegisterRequest;
 import com.financemanager.service.AuthenticationService;
 import jakarta.validation.Valid;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,10 +42,13 @@ public class AuthController {
      * @return AuthResponse with success message
      */
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request, HttpServletRequest httpRequest) {
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         AuthResponse response = authenticationService.login(request);
         // Ensure an HTTP session is created so the SecurityContext is persisted and a JSESSIONID cookie is issued
-        httpRequest.getSession(true);
+        var session = httpRequest.getSession(true);
+        // Explicitly add Set-Cookie header to ensure clients (curl, Postman) receive the session id
+        String cookie = String.format("JSESSIONID=%s; Path=/; HttpOnly; Secure; SameSite=Lax", session.getId());
+        httpResponse.addHeader("Set-Cookie", cookie);
         return ResponseEntity.ok(response);
     }
 
@@ -54,8 +58,11 @@ public class AuthController {
      * @return MessageResponse with success message
      */
     @PostMapping("/logout")
-    public ResponseEntity<MessageResponse> logout(HttpServletRequest httpRequest) {
+    public ResponseEntity<MessageResponse> logout(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         authenticationService.logout(httpRequest);
+        // Clear session cookie on logout
+        String cookie = "JSESSIONID=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0";
+        httpResponse.addHeader("Set-Cookie", cookie);
         return ResponseEntity.ok(MessageResponse.builder()
                 .message("Logout successful")
                 .build());
