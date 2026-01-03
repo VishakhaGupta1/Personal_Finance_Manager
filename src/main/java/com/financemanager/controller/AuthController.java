@@ -6,6 +6,7 @@ import com.financemanager.dto.MessageResponse;
 import com.financemanager.dto.RegisterRequest;
 import com.financemanager.service.AuthenticationService;
 import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,10 @@ public class AuthController {
      * @return AuthResponse with success message
      */
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request, HttpServletRequest httpRequest) {
         AuthResponse response = authenticationService.login(request);
+        // Ensure an HTTP session is created so the SecurityContext is persisted and a JSESSIONID cookie is issued
+        httpRequest.getSession(true);
         return ResponseEntity.ok(response);
     }
 
@@ -51,8 +54,8 @@ public class AuthController {
      * @return MessageResponse with success message
      */
     @PostMapping("/logout")
-    public ResponseEntity<MessageResponse> logout() {
-        authenticationService.logout();
+    public ResponseEntity<MessageResponse> logout(HttpServletRequest httpRequest) {
+        authenticationService.logout(httpRequest);
         return ResponseEntity.ok(MessageResponse.builder()
                 .message("Logout successful")
                 .build());

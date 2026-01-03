@@ -1,0 +1,176 @@
+{
+  "info": {
+    "name": "Personal Finance Manager - Full API",
+    "_postman_id": "b3f7d9f2-0000-4000-8000-123456789abc",
+    "description": "Collection covering all API endpoints from the spec. Set `base_url` before running (default points at Render).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"username\": \"user@example.com\", \"password\": \"password123\", \"fullName\": \"John Doe\", \"phoneNumber\": \"+1234567890\" }" },
+        "url": { "raw": "{{base_url}}/auth/register" }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"username\": \"user@example.com\", \"password\": \"password123\" }" },
+        "url": { "raw": "{{base_url}}/auth/login" }
+      },
+      "response": []
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": { "raw": "{{base_url}}/auth/logout" }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Transaction",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"amount\": 50000.00, \"date\": \"2024-01-15\", \"category\": \"Salary\", \"description\": \"January Salary\" }" },
+        "url": { "raw": "{{base_url}}/transactions" }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Transactions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{base_url}}/transactions?startDate={{startDate}}&endDate={{endDate}}&categoryId={{categoryId}}" }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Transaction",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"amount\": 60000.00, \"description\": \"Updated January Salary\" }" },
+        "url": { "raw": "{{base_url}}/transactions/:id" }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Transaction",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": { "raw": "{{base_url}}/transactions/:id" }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Categories",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{base_url}}/categories" }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Category",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"name\": \"SideBusinessIncome\", \"type\": \"INCOME\" }" },
+        "url": { "raw": "{{base_url}}/categories" }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Category",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": { "raw": "{{base_url}}/categories/:name" }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Goal",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"goalName\": \"Emergency Fund\", \"targetAmount\": 5000.00, \"targetDate\": \"2026-01-01\", \"startDate\": \"2025-01-01\" }" },
+        "url": { "raw": "{{base_url}}/goals" }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Goals",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{base_url}}/goals" }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Goal by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{base_url}}/goals/:id" }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Goal",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{ \"targetAmount\": 6000.00, \"targetDate\": \"2026-02-01\" }" },
+        "url": { "raw": "{{base_url}}/goals/:id" }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Goal",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": { "raw": "{{base_url}}/goals/:id" }
+      },
+      "response": []
+    },
+    {
+      "name": "Monthly Report",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{base_url}}/reports/monthly/:year/:month" }
+      },
+      "response": []
+    },
+    {
+      "name": "Yearly Report",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{base_url}}/reports/yearly/:year" }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    { "key": "base_url", "value": "https://personal-finance-manager-slwg.onrender.com/api" },
+    { "key": "startDate", "value": "2024-01-01" },
+    { "key": "endDate", "value": "2024-01-31" },
+    { "key": "categoryId", "value": "1" }
+  ]
+}
