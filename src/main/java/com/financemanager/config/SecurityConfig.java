@@ -24,8 +24,8 @@ public class SecurityConfig {
                         .maximumSessions(1)
                         .maxSessionsPreventsLogin(false))
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers(HttpMethod.POST, "/api/auth/register", "/auth/register", "/**/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login", "/auth/login", "/**/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/register", "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login", "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/v3/api-docs", "/v3/api-docs/**",
                                 "/swagger-ui.html", "/swagger-ui/**",
