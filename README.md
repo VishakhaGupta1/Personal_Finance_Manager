@@ -623,23 +623,3 @@ mvn javadoc:javadoc
 The generated documentation will be available in `target/site/apidocs/index.html`.
 
 Public controllers, services, and repositories include JavaDoc comments in-source. To view interactive API docs, open the Swagger UI at `/api/swagger-ui/index.html`.
-
-## Notes and Next Steps
-
-- For production, replace H2 with a persistent DB (Postgres/MySQL), enable HTTPS, and consider stateless JWT authentication for API clients.
-- Add OpenAPI operation-level annotations (`@Operation`, `@Tag`) for richer generated docs if desired.
-
-## Support and Documentation
-
-- Spring Boot Documentation: https://spring.io/projects/spring-boot
-- Spring Security: https://spring.io/projects/spring-security
-- Spring Data JPA: https://spring.io/projects/spring-data-jpa
-
-## License
-
-This project is provided as-is for educational purposes.
-
----
-
-**Author**: Finance Manager Development Team  
-**Last Updated**: January 2, 2026
