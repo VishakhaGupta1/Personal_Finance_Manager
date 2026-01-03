@@ -1,15 +1,13 @@
 server:
   servlet:
     context-path: /api
-  port: 8080
-
-  servlet:
     session:
       cookie:
         path: /
         http-only: true
         secure: true
         sameSite: Lax
+  port: 8080
 
 spring:
   application:
