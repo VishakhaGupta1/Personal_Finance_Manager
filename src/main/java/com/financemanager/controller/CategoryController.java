@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * Controller for category management endpoints.
  */
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/api/categories")
 @RequiredArgsConstructor
 @PreAuthorize("isAuthenticated()")
 public class CategoryController {
