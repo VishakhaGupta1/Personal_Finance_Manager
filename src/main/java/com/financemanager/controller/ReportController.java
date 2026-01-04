@@ -32,6 +32,12 @@ public class ReportController {
     public ResponseEntity<MonthlyReportResponse> getMonthlyReport(
             @PathVariable int year,
             @PathVariable int month) {
+        if (month < 1 || month > 12) {
+            throw new IllegalArgumentException("Month must be between 1 and 12");
+        }
+        if (year <= 0) {
+            throw new IllegalArgumentException("Year must be a positive integer");
+        }
         var user = authenticationService.getCurrentUser();
         MonthlyReportResponse response = reportService.getMonthlyReport(year, month, user);
         return ResponseEntity.ok(response);
@@ -45,6 +51,9 @@ public class ReportController {
      */
     @GetMapping("/yearly/{year}")
     public ResponseEntity<YearlyReportResponse> getYearlyReport(@PathVariable int year) {
+        if (year <= 0) {
+            throw new IllegalArgumentException("Year must be a positive integer");
+        }
         var user = authenticationService.getCurrentUser();
         YearlyReportResponse response = reportService.getYearlyReport(year, user);
         return ResponseEntity.ok(response);

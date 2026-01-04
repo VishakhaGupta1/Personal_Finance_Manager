@@ -1,0 +1,6 @@
+com\financemanager\service\SavingsGoalServiceTest.class
+com\financemanager\service\TransactionServiceTest.class
+com\financemanager\controller\AuthControllerTest.class
+com\financemanager\service\ReportServiceTest.class
+com\financemanager\service\CategoryServiceTest.class
+com\financemanager\service\AuthenticationServiceTest.class
