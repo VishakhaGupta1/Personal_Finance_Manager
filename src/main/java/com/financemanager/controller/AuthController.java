@@ -43,7 +43,7 @@ public class AuthController {
      */
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
-        AuthResponse response = authenticationService.login(request);
+        AuthResponse response = authenticationService.login(request, httpRequest);
         // Ensure an HTTP session is created so the SecurityContext is persisted and a JSESSIONID cookie is issued
         var session = httpRequest.getSession(true);
         // Explicitly add Set-Cookie header to ensure clients (curl, Postman) receive the session id

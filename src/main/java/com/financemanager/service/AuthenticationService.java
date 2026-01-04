@@ -10,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
@@ -60,9 +62,11 @@ public class AuthenticationService {
      * Login a user.
      *
      * @param request Login request containing username and password
+     * @param httpRequest HttpServletRequest to store authentication in session
      * @return AuthResponse with success message
      */
-    public AuthResponse login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request, HttpServletRequest httpRequest) {
+        // Authenticate user credentials
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -70,7 +74,14 @@ public class AuthenticationService {
                 )
         );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        // Create SecurityContext and set the authenticated authentication
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+
+        // Create session and store SecurityContext in session so it persists across requests
+        HttpSession session = httpRequest.getSession(true);
+        session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, context);
 
         return AuthResponse.builder()
                 .message("Login successful")
