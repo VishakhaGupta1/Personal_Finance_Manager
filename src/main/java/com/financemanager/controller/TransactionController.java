@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * Controller for transaction management endpoints.
  */
 @RestController
-@RequestMapping("/api/transactions")
+@RequestMapping("/transactions")
 @RequiredArgsConstructor
 @PreAuthorize("isAuthenticated()")
 public class TransactionController {

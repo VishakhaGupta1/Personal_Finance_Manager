@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * Controller for user authentication endpoints.
  */
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
