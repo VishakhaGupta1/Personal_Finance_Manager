@@ -67,23 +67,25 @@ public class TransactionService {
      * @param user Current user
      * @param startDate Optional start date filter
      * @param endDate Optional end date filter
-     * @param categoryId Optional category ID filter
+     * @param categoryName Optional category name filter
      * @return TransactionsResponse with list of transactions
      */
-    public TransactionsResponse getTransactions(User user, String startDate, String endDate, Long categoryId) {
+    public TransactionsResponse getTransactions(User user, String startDate, String endDate, String categoryName) {
         List<Transaction> transactions;
 
         if (startDate != null && endDate != null) {
             LocalDate start = LocalDate.parse(startDate, DATE_FORMATTER);
             LocalDate end = LocalDate.parse(endDate, DATE_FORMATTER);
 
-            if (categoryId != null) {
-                transactions = transactionRepository.findByUserDateRangeAndCategory(user, start, end, categoryId);
+            if (categoryName != null && !categoryName.isBlank()) {
+                Category category = categoryService.getCategoryByName(categoryName, user);
+                transactions = transactionRepository.findByUserDateRangeAndCategory(user, start, end, category.getId());
             } else {
                 transactions = transactionRepository.findByUserAndDateRange(user, start, end);
             }
-        } else if (categoryId != null) {
-            transactions = transactionRepository.findByUserAndCategory(user, categoryId);
+        } else if (categoryName != null && !categoryName.isBlank()) {
+            Category category = categoryService.getCategoryByName(categoryName, user);
+            transactions = transactionRepository.findByUserAndCategory(user, category.getId());
         } else {
             transactions = transactionRepository.findByUserOrderByDateDesc(user);
         }
