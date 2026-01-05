@@ -51,9 +51,9 @@ public class TransactionController {
     public ResponseEntity<TransactionsResponse> getTransactions(
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate,
-            @RequestParam(required = false) String category) {
+            @RequestParam(required = false) Long categoryId) {
         var user = authenticationService.getCurrentUser();
-        TransactionsResponse response = transactionService.getTransactions(user, startDate, endDate, category);
+        TransactionsResponse response = transactionService.getTransactions(user, startDate, endDate, categoryId);
         return ResponseEntity.ok(response);
     }
 
