@@ -454,8 +454,9 @@ Response: 200 OK
 ```
 ## Design Decisions
 
+```text
 1. Layered Architecture
-   - Controllers → Services → Repositories
+   - Controllers -> Services -> Repositories
    - Ensures separation of concerns and maintainability
 
 2. DTO-Based API Contracts
@@ -485,3 +486,4 @@ Response: 200 OK
 8. Transaction Date Validation
    - Prevents future-dated transactions
    - Enforced at service layer
+```
