@@ -10,6 +10,7 @@ A comprehensive web-based personal finance management system built with Spring B
 - [Prerequisites](#prerequisites)
 - [Installation and Setup](#installation-and-setup)
 - [API Documentation](#api-documentation)
+- [Design decision]
 
 ## Features
 
@@ -451,6 +452,40 @@ Response: 200 OK
   "netSavings": 20400.00
 }
 ```
+## Design Decisions
+
+### 1. Layered Architecture
+- **Rationale**: Separation of concerns, easier testing, better maintainability
+- **Implementation**: Controllers → Services → Repositories → Database
+
+### 2. DTOs for Request/Response
+- **Rationale**: Decouple API contracts from entity models, add validation layer
+- **Implementation**: Separate RequestDTOs and ResponseDTOs
+
+### 3. Global Exception Handler
+- **Rationale**: Consistent error responses, centralized error handling
+- **Implementation**: `@ControllerAdvice` with specific exception handlers
+
+### 4. Session-Based Authentication
+- **Rationale**: Stateful authentication suitable for web applications
+- **Implementation**: Spring Security with session management
+
+### 5. H2 Database for Development
+- **Rationale**: No setup required, in-memory storage, easy testing
+- **Implementation**: JPA with Hibernate ORM
+
+### 6. Data Isolation
+- **Rationale**: Security compliance, multi-tenant support
+- **Implementation**: User field in all entities, validation in services
+
+### 7. Goal Progress Calculation
+- **Rationale**: Real-time progress based on transactions
+- **Implementation**: Calculated from income minus expenses since goal start date
+
+### 8. Transaction Date Validation
+- **Rationale**: Prevent future transactions, logical consistency
+- **Implementation**: Validation in service layer
+
 
 
 
