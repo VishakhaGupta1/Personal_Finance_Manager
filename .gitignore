@@ -1,0 +1,8 @@
+# build files
+target/
+*.class
+
+# local / sensitive
+cookies.txt
+.env
+application.yml
