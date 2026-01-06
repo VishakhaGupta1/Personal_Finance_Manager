@@ -11,8 +11,6 @@ A comprehensive web-based personal finance management system built with Spring B
 - [Installation and Setup](#installation-and-setup)
 - [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
-- [Testing](#testing)
-- [Deployment](#deployment)
 - [Design Decisions](#design-decisions)
 
 ## Features
@@ -467,30 +465,6 @@ Response: 200 OK
 | 409 | Conflict | Duplicate category names |
 | 500 | Internal Server Error | Unexpected errors |
 
-## Testing
 
-### Run All Tests
-```bash
-mvn test
-```
 
-### Run Tests with Coverage Report
-```bash
-mvn clean test jacoco:report
-```
-
-Coverage report will be generated at: `target/site/jacoco/index.html`
-
-### Test Coverage
-- Unit Tests: **5+ test classes**
-- Integration Tests: Controller tests
-- Minimum Coverage: **80%**
-
-### Test Classes
-1. `AuthenticationServiceTest` - Authentication logic
-2. `TransactionServiceTest` - Transaction operations
-3. `CategoryServiceTest` - Category management
-4. `SavingsGoalServiceTest` - Goal management
-5. `ReportServiceTest` - Report generation
-6. `AuthControllerTest` - API endpoint validation
 
