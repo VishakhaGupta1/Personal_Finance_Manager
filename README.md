@@ -10,7 +10,7 @@ A comprehensive web-based personal finance management system built with Spring B
 - [Prerequisites](#prerequisites)
 - [Installation and Setup](#installation-and-setup)
 - [API Documentation](#api-documentation)
-- [Design decision]
+- [Design Decisions](#design-decisions)
 
 ## Features
 
@@ -454,41 +454,34 @@ Response: 200 OK
 ```
 ## Design Decisions
 
-### 1. Layered Architecture
-- **Rationale**: Separation of concerns, easier testing, better maintainability
-- **Implementation**: Controllers → Services → Repositories → Database
+1. Layered Architecture
+   - Controllers → Services → Repositories
+   - Ensures separation of concerns and maintainability
 
-### 2. DTOs for Request/Response
-- **Rationale**: Decouple API contracts from entity models, add validation layer
-- **Implementation**: Separate RequestDTOs and ResponseDTOs
+2. DTO-Based API Contracts
+   - RequestDTOs and ResponseDTOs
+   - Decouples API from persistence models
 
-### 3. Global Exception Handler
-- **Rationale**: Consistent error responses, centralized error handling
-- **Implementation**: `@ControllerAdvice` with specific exception handlers
+3. Global Exception Handling
+   - Centralized error handling
+   - Implemented using @ControllerAdvice
 
-### 4. Session-Based Authentication
-- **Rationale**: Stateful authentication suitable for web applications
-- **Implementation**: Spring Security with session management
+4. Session-Based Authentication
+   - Stateful authentication model
+   - Implemented with Spring Security sessions
 
-### 5. H2 Database for Development
-- **Rationale**: No setup required, in-memory storage, easy testing
-- **Implementation**: JPA with Hibernate ORM
+5. H2 In-Memory Database
+   - Zero-configuration development setup
+   - Faster testing and prototyping
 
-### 6. Data Isolation
-- **Rationale**: Security compliance, multi-tenant support
-- **Implementation**: User field in all entities, validation in services
+6. Data Isolation
+   - User reference in all entities
+   - Prevents cross-user data access
 
-### 7. Goal Progress Calculation
-- **Rationale**: Real-time progress based on transactions
-- **Implementation**: Calculated from income minus expenses since goal start date
+7. Savings Goal Progress Calculation
+   - Income minus expenses since goal start date
+   - Provides real-time progress updates
 
-### 8. Transaction Date Validation
-- **Rationale**: Prevent future transactions, logical consistency
-- **Implementation**: Validation in service layer
-
-
-
-
-
-
-
+8. Transaction Date Validation
+   - Prevents future-dated transactions
+   - Enforced at service layer
