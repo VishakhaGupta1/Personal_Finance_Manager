@@ -9,7 +9,6 @@ A comprehensive web-based personal finance management system built with Spring B
 - [System Architecture](#system-architecture)
 - [Prerequisites](#prerequisites)
 - [Installation and Setup](#installation-and-setup)
-- [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
 
 ## Features
@@ -453,16 +452,7 @@ Response: 200 OK
 }
 ```
 
-### Error Responses
 
-| Status Code | Description | Example |
-|------------|-------------|---------|
-| 400 | Bad Request | Invalid input validation |
-| 401 | Unauthorized | Invalid credentials, expired session |
-| 403 | Forbidden | Accessing other user's data |
-| 404 | Not Found | Resource doesn't exist |
-| 409 | Conflict | Duplicate category names |
-| 500 | Internal Server Error | Unexpected errors |
 
 
 
