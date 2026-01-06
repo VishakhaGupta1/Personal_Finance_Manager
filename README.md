@@ -11,7 +11,6 @@ A comprehensive web-based personal finance management system built with Spring B
 - [Installation and Setup](#installation-and-setup)
 - [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
-- [Design Decisions](#design-decisions)
 
 ## Features
 
