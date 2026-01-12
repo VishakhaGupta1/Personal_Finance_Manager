@@ -121,7 +121,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-The application will start on `http://localhost:8080`. API endpoints are available at the application root (for example `http://localhost:8080/auth/login`).
+The application will start on `http://localhost:8080`. API endpoints are available under the `/api` base path (for example `http://localhost:8080/api/auth/login`).
 
 ### 4. Access H2 Console (Optional)
 
@@ -139,7 +139,7 @@ http://localhost:8080/h2-console
 
 #### Register User
 ```
-POST /auth/register
+POST /api/auth/register
 Content-Type: application/json
 
 {
@@ -158,7 +158,7 @@ Response: 201 Created
 
 #### Login
 ```
-POST /auth/login
+POST /api/auth/login
 Content-Type: application/json
 
 {
@@ -174,7 +174,7 @@ Response: 200 OK
 
 #### Logout
 ```
-POST /auth/logout
+POST /api/auth/logout
 
 Response: 200 OK
 {
@@ -186,7 +186,7 @@ Response: 200 OK
 
 #### Create Transaction
 ```
-POST /transactions
+POST /api/transactions
 Content-Type: application/json
 
 {
@@ -209,7 +209,7 @@ Response: 201 Created
 
 #### Get Transactions
 ```
-GET /transactions?startDate=2024-01-01&endDate=2024-01-31&categoryId=1
+GET /api/transactions?startDate=2024-01-01&endDate=2024-01-31&categoryId=1
 
 Response: 200 OK
 {
@@ -261,7 +261,7 @@ Response: 200 OK
 
 #### Get All Categories
 ```
-GET /categories
+GET /api/categories
 
 Response: 200 OK
 {
@@ -282,7 +282,7 @@ Response: 200 OK
 
 #### Create Custom Category
 ```
-POST /categories
+POST /api/categories
 Content-Type: application/json
 
 {
@@ -300,7 +300,7 @@ Response: 201 Created
 
 #### Delete Custom Category
 ```
-DELETE /categories/{name}
+DELETE /api/categories/{name}
 
 Response: 200 OK
 {
@@ -312,7 +312,7 @@ Response: 200 OK
 
 #### Create Goal
 ```
-POST /goals
+POST /api/goals
 Content-Type: application/json
 
 {
@@ -337,7 +337,7 @@ Response: 201 Created
 
 #### Get All Goals
 ```
-GET /goals
+GET /api/goals
 
 Response: 200 OK
 {
@@ -358,7 +358,7 @@ Response: 200 OK
 
 #### Get Single Goal
 ```
-GET /goals/{id}
+GET /api/goals/{id}
 
 Response: 200 OK
 {
@@ -375,7 +375,7 @@ Response: 200 OK
 
 #### Update Goal
 ```
-PUT /goals/{id}
+PUT /api/goals/{id}
 Content-Type: application/json
 
 {
