@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * Controller for financial reports endpoints.
  */
 @RestController
-@RequestMapping("/reports")
+@RequestMapping("/api/reports")
 @RequiredArgsConstructor
 @PreAuthorize("isAuthenticated()")
 public class ReportController {

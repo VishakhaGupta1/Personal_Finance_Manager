@@ -22,4 +22,7 @@ public class UpdateTransactionRequest {
 
     @Size(max = 500, message = "Description must not exceed 500 characters")
     private String description;
+
+    // Optional: allow changing category name during update
+    private String category;
 }

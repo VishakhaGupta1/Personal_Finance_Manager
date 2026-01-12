@@ -54,6 +54,10 @@ public class SavingsGoalService {
                 ? LocalDate.parse(request.getStartDate(), DATE_FORMATTER) 
                 : LocalDate.now();
 
+        if (startDate.isAfter(targetDate)) {
+            throw new IllegalArgumentException("Start date must be before target date");
+        }
+
         SavingsGoal goal = SavingsGoal.builder()
                 .goalName(request.getGoalName())
                 .targetAmount(request.getTargetAmount())

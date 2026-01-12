@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * Controller for savings goal management endpoints.
  */
 @RestController
-@RequestMapping("/goals")
+@RequestMapping("/api/goals")
 @RequiredArgsConstructor
 @PreAuthorize("isAuthenticated()")
 public class SavingsGoalController {

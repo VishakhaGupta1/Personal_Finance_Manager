@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * Controller for transaction management endpoints.
  */
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/api/transactions")
 @RequiredArgsConstructor
 @PreAuthorize("isAuthenticated()")
 public class TransactionController {
@@ -51,9 +51,10 @@ public class TransactionController {
     public ResponseEntity<TransactionsResponse> getTransactions(
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate,
-            @RequestParam(required = false) String category) {
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String type) {
         var user = authenticationService.getCurrentUser();
-        TransactionsResponse response = transactionService.getTransactions(user, startDate, endDate, category);
+        TransactionsResponse response = transactionService.getTransactions(user, startDate, endDate, category, type);
         return ResponseEntity.ok(response);
     }
 

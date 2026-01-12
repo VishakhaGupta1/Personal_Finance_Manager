@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * Controller for user authentication endpoints.
  */
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -44,10 +44,9 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         AuthResponse response = authenticationService.login(request, httpRequest);
-        // Ensure an HTTP session is created so the SecurityContext is persisted and a JSESSIONID cookie is issued
         var session = httpRequest.getSession(true);
-        // Explicitly add Set-Cookie header to ensure clients (curl, Postman) receive the session id
-        String cookie = String.format("JSESSIONID=%s; Path=/; HttpOnly; Secure; SameSite=Lax", session.getId());
+        boolean secure = httpRequest.isSecure();
+        String cookie = String.format("JSESSIONID=%s; Path=/; HttpOnly; SameSite=Lax%s", session.getId(), secure ? "; Secure" : "");
         httpResponse.addHeader("Set-Cookie", cookie);
         return ResponseEntity.ok(response);
     }
@@ -60,8 +59,8 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<MessageResponse> logout(HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         authenticationService.logout(httpRequest);
-        // Clear session cookie on logout
-        String cookie = "JSESSIONID=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0";
+        boolean secure = httpRequest.isSecure();
+        String cookie = String.format("JSESSIONID=; Path=/; HttpOnly; SameSite=Lax%s; Max-Age=0", secure ? "; Secure" : "");
         httpResponse.addHeader("Set-Cookie", cookie);
         return ResponseEntity.ok(MessageResponse.builder()
                 .message("Logout successful")

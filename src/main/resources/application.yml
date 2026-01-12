@@ -4,7 +4,7 @@ server:
       cookie:
         path: /
         http-only: true
-        secure: true
+        secure: false
         sameSite: Lax
   port: 8080
 

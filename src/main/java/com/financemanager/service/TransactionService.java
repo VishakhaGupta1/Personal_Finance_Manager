@@ -70,8 +70,17 @@ public class TransactionService {
      * @param categoryName Optional category name filter
      * @return TransactionsResponse with list of transactions
      */
-    public TransactionsResponse getTransactions(User user, String startDate, String endDate, String categoryName) {
+    public TransactionsResponse getTransactions(User user, String startDate, String endDate, String categoryName, String typeName) {
         List<Transaction> transactions;
+        // Parse optional type filter
+        com.financemanager.entity.CategoryType typeFilter = null;
+        if (typeName != null && !typeName.isBlank()) {
+            try {
+                typeFilter = com.financemanager.entity.CategoryType.valueOf(typeName.trim().toUpperCase());
+            } catch (IllegalArgumentException ex) {
+                throw new IllegalArgumentException("Invalid type. Allowed values: INCOME, EXPENSE");
+            }
+        }
 
         if (startDate != null && endDate != null) {
             LocalDate start = LocalDate.parse(startDate, DATE_FORMATTER);
@@ -79,13 +88,25 @@ public class TransactionService {
 
             if (categoryName != null && !categoryName.isBlank()) {
                 Category category = categoryService.getCategoryByName(categoryName, user);
-                transactions = transactionRepository.findByUserDateRangeAndCategory(user, start, end, category.getId());
+                if (typeFilter != null && category.getType() != typeFilter) {
+                    transactions = List.of();
+                } else {
+                    transactions = transactionRepository.findByUserDateRangeAndCategory(user, start, end, category.getId());
+                }
+            } else if (typeFilter != null) {
+                transactions = transactionRepository.findByUserAndDateRangeAndType(user, start, end, typeFilter);
             } else {
                 transactions = transactionRepository.findByUserAndDateRange(user, start, end);
             }
         } else if (categoryName != null && !categoryName.isBlank()) {
             Category category = categoryService.getCategoryByName(categoryName, user);
-            transactions = transactionRepository.findByUserAndCategory(user, category.getId());
+            if (typeFilter != null && category.getType() != typeFilter) {
+                transactions = List.of();
+            } else {
+                transactions = transactionRepository.findByUserAndCategory(user, category.getId());
+            }
+        } else if (typeFilter != null) {
+            transactions = transactionRepository.findByUserAndTypeOrderByDateDesc(user, typeFilter);
         } else {
             transactions = transactionRepository.findByUserOrderByDateDesc(user);
         }
@@ -138,6 +159,11 @@ public class TransactionService {
 
         if (request.getDescription() != null) {
             transaction.setDescription(request.getDescription());
+        }
+
+        if (request.getCategory() != null && !request.getCategory().isBlank()) {
+            Category newCategory = categoryService.getCategoryByName(request.getCategory(), user);
+            transaction.setCategory(newCategory);
         }
 
         Transaction updatedTransaction = transactionRepository.save(transaction);

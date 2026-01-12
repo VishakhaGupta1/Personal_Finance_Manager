@@ -1,23 +1,5 @@
 #!/bin/bash
 
-# Complete E2E Tests for Personal Finance Manager
-# Features:
-# - HTTP status code range validation (2xx, 4xx, 5xx) for flexible testing
-# - Configurable base URL via command line argument
-# - Response validation for calculations and business logic
-# - Organized test scenarios covering all finance manager functionality
-# - Comprehensive error handling and reporting
-# - Color-coded output for better readability
-# - Session-based authentication testing
-#
-# Usage:
-#   chmod +x finance_e2e_tests.sh
-#   ./finance_e2e_tests.sh [BASE_URL]
-#
-# Examples:
-#   ./finance_e2e_tests.sh                               # Uses default localhost
-#   ./finance_e2e_tests.sh "https://api.example.com"    # Custom base URL
-
 # Configuration
 DEFAULT_BASE_URL="http://localhost:8080/api"
 BASE_URL="${1:-$DEFAULT_BASE_URL}"
