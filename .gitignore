@@ -1,0 +1,12 @@
+# build files
+target/
+*.class
+
+# local / sensitive
+cookies.txt
+.env
+application.yml
+user1_session.txt
+user2_session.txt
+test_output.txt
+test_error.txt

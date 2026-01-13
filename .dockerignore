@@ -1,0 +1,56 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Build artifacts
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# Maven
+.m2
+mvn
+
+# IDE files
+.vscode
+.idea
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build files
+build/
+gradle/
+.gradle
+
+# Test files
+*.test.js
+.mocha
+
+# Documentation
+README.md
+docs/
+*.md
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Node modules (if any)
+node_modules/
+
+# Misc
+.cache
+.eslintcache
+npm-debug.log
+yarn-error.log
