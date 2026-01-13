@@ -105,8 +105,8 @@ A comprehensive web-based personal finance management system built with Spring B
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd finance-manager
+git clone https://github.com/VishakhaGupta1/Personal_Finance_Manager.git
+cd Personal_Finance_Manager
 ```
 
 ### 2. Build the Project
@@ -123,7 +123,15 @@ mvn spring-boot:run
 
 The application will start on `http://localhost:8080`. API endpoints are available under the `/api` base path (for example `http://localhost:8080/api/auth/login`).
 
-### 4. Access H2 Console (Optional)
+### 4. Run Tests
+
+```bash
+mvn -DskipTests=false test
+```
+
+Optional coverage report will be generated under `target/site/jacoco/index.html`.
+
+### 5. Access H2 Console (Optional)
 
 ```
 http://localhost:8080/h2-console
@@ -209,7 +217,7 @@ Response: 201 Created
 
 #### Get Transactions
 ```
-GET /api/transactions?startDate=2024-01-01&endDate=2024-01-31&categoryId=1
+GET /api/transactions?startDate=2024-01-01&endDate=2024-01-31&categoryId=1&type=INCOME
 
 Response: 200 OK
 {
@@ -225,6 +233,12 @@ Response: 200 OK
   ]
 }
 ```
+
+Supported filters:
+- `startDate`, `endDate`: ISO date range (YYYY-MM-DD)
+- `category`: category name (default or custom)
+- `categoryId`: category identifier
+- `type`: `INCOME` or `EXPENSE`
 
 #### Update Transaction
 ```
